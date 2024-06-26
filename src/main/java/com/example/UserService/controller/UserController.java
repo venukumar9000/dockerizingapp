@@ -21,7 +21,7 @@ public class UserController {
 
     private UserService userService;
 
-    private static Logger LOGGER= LoggerFactory.getLogger(UserController.class);
+   
 
     @PostMapping()
     public ResponseEntity<UserDto>  createUser(@RequestBody @Valid UserDto userDto){
@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<UserDto> getById(@PathVariable Long id){
        UserDto userId = userService.userById(id);
-        LOGGER.info(String.format("userId->"));
+
        return new ResponseEntity<>(userId,HttpStatus.OK);
 
     }

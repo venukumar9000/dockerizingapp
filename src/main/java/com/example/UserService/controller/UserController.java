@@ -5,6 +5,8 @@ import com.example.UserService.entity.User;
 import com.example.UserService.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,8 @@ public class UserController {
 
     private UserService userService;
 
+    private static Logger LOGGER= LoggerFactory.getLogger(UserController.class);
+
     @PostMapping()
     public ResponseEntity<UserDto>  createUser(@RequestBody @Valid UserDto userDto){
 
@@ -29,7 +33,7 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<UserDto> getById(@PathVariable Long id){
        UserDto userId = userService.userById(id);
-        System.out.println(userId);
+        LOGGER.info(String.format("userId->",id));
        return new ResponseEntity<>(userId,HttpStatus.OK);
 
     }
@@ -37,6 +41,7 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<List<UserDto>> findAllUsers(){
         List<UserDto> users = userService.getAllUser();
+
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
     @PutMapping("{id}")
